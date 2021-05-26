@@ -134,3 +134,7 @@ const Admin = ({ user }) => {
 };
 
 export default Admin;
+
+
+//meteor deploy lend-and-borrow.meteorapp.com --free --mongo
+//npx browserslist@latest --update-db

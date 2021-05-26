@@ -3,6 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import '../imports/api/methods';
 import '../imports/api/userRolePublish';
+import '../imports/api/loanPublish';
 
 const SEED_EMAIL = 'admin@admin.com';
 const SEED_PASSWORD = 'admin';

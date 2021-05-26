@@ -11,9 +11,9 @@ const Borrower = ({user}) => {
     });
 
     const {requestedLoans} = useTracker(()=> {
-        Meteor.subscribe("loans");
+        Meteor.subscribe('loans');
         if (!Meteor.user()) {
-            return noDataAvailable;
+            return "noDataAvailable";
         }
         const requestedLoans = loanCollection.find({'userInfo._id':user._id}).fetch();
         return {requestedLoans};

@@ -7,12 +7,11 @@ import { Meteor } from 'meteor/meteor';
 const Lender = ({user}) => {
 
     const { loans, confirmedLoans , isLoading } = useTracker(() => {
+        Meteor.subscribe('loans');
         const noDataAvailable = { tasks: [], pendingTasksCount: 0 };
         if (!Meteor.user()) {
           return noDataAvailable;
         }
-        Meteor.subscribe('loans');
-    
         // if (!handler.ready()) {
         //   return { isLoading: true };
         // }
