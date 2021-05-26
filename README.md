@@ -26,4 +26,4 @@
 
 ## Live Site: https://lend-and-borrow.meteorapp.com/
 
-Note: Multiple User feature coming, Default ADMIN userName: admin, Password: admin.
+Note: Multiple User feature coming, Default ADMIN Email: admin@admin.com, Password: admin.
