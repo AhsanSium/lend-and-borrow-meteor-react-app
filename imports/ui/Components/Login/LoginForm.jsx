@@ -1,8 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
-// {{> loginButtons}}
 import { Accounts } from 'meteor/accounts-base';
-// import { Roles } from 'meteor/alanning:roles';
+import { useTracker } from 'meteor/react-meteor-data';
 
 const LoginForm = () => {
 
@@ -35,16 +34,29 @@ const LoginForm = () => {
 
         if(e.target.name === 'role'){
             const newUserInfo = {...userInfo};
-            newUserInfo.password = e.target.value;
+            newUserInfo.userRole = e.target.value;
             setUserInfo(newUserInfo);
         }
     }
 
-    const setRole = ( email, role ) => Meteor.call('users.role', {email, role});
+    const {setRole} = useTracker(() => {
+        Meteor.subscribe("roles");
+        const setRole = ( email, role ) => Meteor.call('users.role', {email, role});
+        return{setRole};
+    })
 
     const submit = e => {
         e.preventDefault();
         console.log(userInfo.email, userInfo.userRole);
+        if(Meteor.users?.find({}).count() === 0 && userInfo.email === 'admin@admin.com'){
+            Accounts.createUser({ email:userInfo.email, password: userInfo.password, profile: { name: 'Default Admin' }}, (err)=> {
+                if (err) console.error(err.reason);
+                else {
+                    console.info('Create user success !');
+                    setRole('admin@admin.com', 'admin');
+                }
+            });
+        }
         if(newUser){
             Accounts.createUser({ email:userInfo.email, password: userInfo.password, profile: { name: userInfo.userName }}, (err)=> {
                 if (err) console.error(err.reason);
@@ -54,10 +66,12 @@ const LoginForm = () => {
                 }
             });
         }
-        else{
+        
+        if(!newUser){
             Meteor.loginWithPassword(userInfo.email, userInfo.password);
-            console.log(userInfo.email, userInfo.userRole);
+            console.log(userInfo.email, userInfo.userRole);      
         }
+        
         
     };
 

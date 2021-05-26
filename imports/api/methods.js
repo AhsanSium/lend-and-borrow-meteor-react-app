@@ -3,8 +3,28 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { loanCollection } from '../db/LoanCollection';
 
+const SEED_EMAIL = 'admin@admin.com';
+const SEED_PASSWORD = 'admin';
 
 Meteor.methods({
+
+  // 'set.default'(){
+  //   if (!Accounts.findUserByEmail(SEED_EMAIL)) {
+  //     const user = Accounts.createUser({
+  //       email:SEED_EMAIL,
+  //       password:SEED_PASSWORD, 
+  //       profile:{
+  //         name:'Default Admin'
+  //       }
+  //     });
+  //     console.log(user);
+  //     if(user){
+  //       Roles.addUsersToRoles(user, [`admin`], SEED_EMAIL);
+  //     }
+  //   }
+  // },
+  
+
   'users.role'({ email, role }) {
 
     console.log({ email, role });
