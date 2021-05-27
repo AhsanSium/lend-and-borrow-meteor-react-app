@@ -1,8 +1,27 @@
 import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import { loanCollection } from '../../../db/LoanCollection';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Container from '@material-ui/core/Container';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+    formContainer:{
+        
+    }
+}));
 
 const Borrower = ({user}) => {
+
+    const classes = useStyles();
 
     const [borrowInfo, setBorrowInfo] = useState({
         name:'',
@@ -55,22 +74,22 @@ const Borrower = ({user}) => {
                 console.log('Req Loan',requestedLoans&&requestedLoans )
             }
             <h3>Request a Loan</h3>
-            <form className='req-form' onSubmit={handleSubmit}>
+            <form className={classes.root} onSubmit={handleSubmit}>
                 <label htmlFor="name">Name</label>
                 <br />
-                <input name="name" type="text" placeholder='Name' onChange={(e) => handleChange(e)} required />
+                <TextField name="name" type="text" placeholder='Name' onChange={(e) => handleChange(e)} required />
                 <br />
                 <label htmlFor="loan">Loan Amount</label>
                 <br />
-                <input type="number" name="amount"
+                <TextField type="number" name="amount"
                 placeholder='Amount of Loan' 
                 onChange={(e) => handleChange(e)} required />
                 <br />
                 <label htmlFor="phone">Phone No</label>
                 <br />
-                <input type="text" name="phone" id="" onChange={(e) => handleChange(e)}  required />
+                <TextField placeholder='Phone No' type="text" name="phone" id="" onChange={(e) => handleChange(e)}  required />
                 <br />
-            <button type="submit">Request</button>
+                <Button variant="contained" style={{backgroundColor:'#93ff93'}} type="submit">Request</Button>
         </form>
             
         </div>

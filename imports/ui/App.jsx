@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import LoginForm from './Components/Login/LoginForm';
 import Dashboard from './Components/Dashboard/Dashboard';
+import TopAppBar from './Components/AppBar/TopAppBar';
 
 export const App = () => {
 
@@ -12,7 +13,6 @@ export const App = () => {
     Meteor.subscribe("roles");
     const user = Meteor.user();
     const matchedUser = Meteor.roleAssignment.find({ scope: user && user?.emails[0]?.address }).fetch()
-
     return{user, matchedUser}
   })
 
@@ -24,7 +24,7 @@ export const App = () => {
 
   return (
     <div>
-      <h1>Lend And Borrow</h1>
+      <TopAppBar user={user}></TopAppBar>
 
       { user ? (
         <Dashboard user={user && user} userRole={userRole && userRole} />

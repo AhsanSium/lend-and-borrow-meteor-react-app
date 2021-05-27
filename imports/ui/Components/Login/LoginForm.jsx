@@ -2,8 +2,28 @@ import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import { Accounts } from 'meteor/accounts-base';
 import { useTracker } from 'meteor/react-meteor-data';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Container from '@material-ui/core/Container';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+    formContainer:{
+        
+    }
+}));
 
 const LoginForm = () => {
+
+    const classes = useStyles();
 
     const [newUser, setNewUser] = useState(false);
     
@@ -73,27 +93,27 @@ const LoginForm = () => {
         }
         
         
+        
     };
 
     return (
-        <form onSubmit={submit} className="login-form">
+        <Container className={classes.formContainer}>
+        <form onSubmit={submit} className={classes.root} autoComplete="off">
 
-            
             <div>
-                <h3>{newUser ? 'Sign Up': 'Login'}</h3>
+                <h2>{newUser ? 'Sign Up': 'Login'}</h2>
             </div>   
                 
             <div>
                 <label htmlFor="newUser">New User</label>
-                <input type="checkbox" name="newUser" id="" onChange={()=>setNewUser(!newUser)}/>
+                <Checkbox type="checkbox" name="newUser" id="" onClick={()=>setNewUser(!newUser)}/>
             </div>
             <br />
             { newUser &&
             <div>
-
                 <label htmlFor="username">User Name</label>
                 <br />
-                <input
+                <TextField
                 type="text"
                 placeholder="Your Name"
                 name="username"
@@ -110,7 +130,7 @@ const LoginForm = () => {
 
             <div>
 
-                <input
+                <TextField
                 type="email"
                 placeholder="user email"
                 name="email"
@@ -125,7 +145,7 @@ const LoginForm = () => {
             </div>
 
             <div>
-                <input
+                <TextField
                 type="password"
                 placeholder="Password"
                 name="password"
@@ -137,9 +157,9 @@ const LoginForm = () => {
 
             { newUser &&
                 <div>
-                    <label htmlFor="role">Choose a Role:</label>
-                    <select id="role" name="role" onChange={e => handleChange(e)} required >
-                        <option default value="user-borrow">Borrower</option>
+                    <label htmlFor="role">Choose a Role: </label>
+                    <select style={{padding:'10px 5px', boxShadow:'rgb(236 236 236) 1px 2px 3px 3px', borderRadius:'10px'}} id="role" name="role" onChange={e => handleChange(e)} required >
+                        <option  value="user-borrow">Borrower</option>
                         <option  value="user-lend">Lender</option>
                     </select>
                 </div>
@@ -148,11 +168,12 @@ const LoginForm = () => {
         
             <div>
 
-                <button type="submit">{ newUser? 'Sign Up': 'Log In'}</button>
+                <Button variant="contained" color="primary" type="submit">{ newUser? 'Sign Up': 'Log In'}</Button>
 
             </div>
             
       </form>
+      </Container>
     );
 };
 
