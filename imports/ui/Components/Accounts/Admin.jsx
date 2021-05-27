@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import Users from './Users/Users';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
 
 const Admin = ({ user }) => {
 
@@ -58,78 +63,66 @@ const Admin = ({ user }) => {
     
 
     return (
-        <div>
-            <h3>This is ADMIN</h3>
-            {
-                console.log(user)
-            }
-            <h3>Add ADMIN</h3>
-            <form onSubmit={submit} className="login-form">
+        <Container>
+             <Grid container spacing={3}>
+                <Grid item xs={6}>
+                <h3>Add ADMIN</h3>
+                    <form onSubmit={submit} className="login-form">
 
-                <div>
+                        <div>
+                            <br />
+                            <TextField
+                                type="text"
+                                placeholder="Admin Name"
+                                name="username"
+                                required
+                                onChange={e => handleChange(e)}
+                                
+                            />
+                        </div>
 
-                    <label htmlFor="username">User Name</label>
-                    <br />
-                    <input
-                        type="text"
-                        placeholder="Your Name"
-                        name="username"
-                        required
-                        onChange={e => handleChange(e)}
-                    />
-                </div>
+                        <div>
 
+                            <TextField
+                                type="email"
+                                placeholder="Admin Email"
+                                name="email"
+                                required
+                                onChange={e => handleChange(e)}
+                                
+                            />
+                        </div>
 
-                <div>
-                    <label htmlFor="email">E-mail</label>
+                        <div>
+                            <TextField
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                required
+                                onChange={e => handleChange(e)}
+                            />
 
-                </div>
+                        </div>
+                        <br />
+                        <div>
 
-                <div>
+                            <Button variant="contained" color="primary" type="submit">Submit</Button>
 
-                    <input
-                        type="email"
-                        placeholder="user email"
-                        name="email"
-                        required
-                        onChange={e => handleChange(e)}
-                    />
-                </div>
+                        </div>
+                    </form>
+                    
+                </Grid>
+                <Grid item xs={6}>
+                    <h3>Delete User</h3>
+                        { 
+                            allUserData && allUserData.map(singleUser => <Users handleDelete={handleDelete} key={singleUser._id} singleUser={singleUser}></Users>)
+                            
+                        }
+                </Grid>
 
-                <div>
-                    <label htmlFor="Ahsan">Password</label>
+             </Grid>
 
-                </div>
-
-                <div>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        required
-                        onChange={e => handleChange(e)}
-                    />
-
-                </div>
-
-                <div>
-
-                    <button type="submit">Submit</button>
-
-                </div>
-
-            </form>
-
-            <h3>Delete User</h3>
-            {
-                console.log(allUserData)
-            }
-            { 
-                allUserData && allUserData.map(singleUser => <Users handleDelete={handleDelete} key={singleUser._id} singleUser={singleUser}></Users>)
-                
-            }
-
-        </div>
+        </Container>
     );
 };
 

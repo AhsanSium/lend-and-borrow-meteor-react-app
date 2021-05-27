@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LoanEdit = ({singleLoan, handleConfirmPay}) => {
+const ConfirmedLoans = ({singleLoan}) => {
 
     const classes = useStyles();
     const [dense, setDense] = useState(false);
@@ -40,7 +40,7 @@ const LoanEdit = ({singleLoan, handleConfirmPay}) => {
     return (
         <div>
             {
-                !hideElement && singleLoan.status === 'pending' &&
+                !hideElement && 
                     <div className={classes.demo}>
                         <List dense={dense}>
                             <ListItem>
@@ -55,34 +55,16 @@ const LoanEdit = ({singleLoan, handleConfirmPay}) => {
                             <ListItemText>
                                 <h5>Amount: {singleLoan.borrowInfo.amount}</h5>
                             </ListItemText>
-                            <ListItemText>
+                            <ListItemText color={'primary'}>
                                 <h5>Status: {singleLoan.status}</h5>
                             </ListItemText>
-                            
-                            <ListItemSecondaryAction>
-                                confirm Pay
-                                <IconButton edge="end" aria-label="delete" onClick={ handleConfirmClick}>
-                                    
-                                <CheckCircleOutlineIcon color={'primary'} />
-                                </IconButton>
-                            </ListItemSecondaryAction>
+
                             </ListItem>
                         </List>
                     </div>
             }
-            {/* {   !hideElement &&
-                <>
-                    <h3>Name: {singleLoan.borrowInfo.name}</h3>
-                    <h5>Amount: {singleLoan.borrowInfo.amount}</h5>
-                    <h5>Status: {singleLoan.status}</h5>
-                    {
-                        singleLoan.status === 'pending' &&
-                        <button onClick={handleConfirmClick}>Confirm</button>
-                    }
-                </>
-            } */}
         </div>
     );
 };
 
-export default LoanEdit;
+export default ConfirmedLoans;

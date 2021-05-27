@@ -10,29 +10,20 @@ const Dashboard = ({user,userRole}) => {
 
 
     return (
-        <Container maxWidth="md">
+        <Container>
             <div>
                 <h2>Welcome {user?.profile?.name}</h2>
             </div>
 
-            {userRole === 'admin' &&
-                <>
-                <h3> Role: ADMIN </h3>
+            {userRole === 'admin' &&           
                 <Admin user={user}></Admin>
-                </>
             }
 
             { userRole === 'user-borrow' &&
-                <>
-                <h3> Role: Borrower</h3>
                 <Borrower user={user}></Borrower>
-                </>
             }
             { userRole === 'user-lend' &&
-                <>
-                <h3> Role: Lender</h3>
                     <Lender user={user}></Lender>
-                </>
             }
 
         </Container>
