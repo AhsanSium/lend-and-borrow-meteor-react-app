@@ -11,6 +11,10 @@ import Menu from '@material-ui/core/Menu';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        
+    },
+    appBar: {
+        backgroundColor:'#004d71'
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -42,8 +46,11 @@ const TopAppBar = ({user}) => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar className={classes.appBar} position="static">
                 <Toolbar>
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <img className='logo' src="/Images/logo.png" alt="logo" />
+                </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         Lend & Borrow
                     </Typography>
@@ -75,7 +82,10 @@ const TopAppBar = ({user}) => {
                                 onClose={handleClose}
                             >
                                 <MenuItem>{user?.profile.name}</MenuItem>
-                                <MenuItem style={{backgroundColor:'rgb(220, 0, 78)', color:'white', borderRadius:'5px'}} onClick={handleLogout}>Logout</MenuItem>
+                                { user ?
+                                    <MenuItem style={{backgroundColor:'rgb(220, 0, 78)', color:'white', borderRadius:'5px'}} onClick={handleLogout}>Logout</MenuItem>
+                                    :<MenuItem style={{backgroundColor:'#003fb1', color:'white', borderRadius:'5px'}}>Login First</MenuItem>
+                                }
                             </Menu>
                         </div>
                     

@@ -42,7 +42,7 @@ const users = ({singleUser, handleDelete}) => {
                     <ListItem>
                     <ListItemAvatar>
                         <Avatar>
-                        <AccountBoxIcon />
+                        <AccountBoxIcon color={'primary'} />
                         </Avatar>
                     </ListItemAvatar>
                     <ListItemText
@@ -50,7 +50,7 @@ const users = ({singleUser, handleDelete}) => {
                     />
                     <ListItemSecondaryAction>
                         <IconButton edge="end" aria-label="delete" onClick={()=> handleDelete(singleUser._id)}>
-                        <DeleteIcon />
+                        <DeleteIcon color={'secondary'} />
                         </IconButton>
                     </ListItemSecondaryAction>
                     </ListItem>
