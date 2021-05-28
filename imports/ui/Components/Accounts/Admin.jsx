@@ -5,6 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 
 const Admin = ({ user }) => {
@@ -14,6 +16,8 @@ const Admin = ({ user }) => {
         email: '',
         password: '',
     });
+
+    const [open, setOpen] = useState(false);
 
     const { allUserData } = useTracker(() => {
         Meteor.subscribe("userList");
@@ -52,14 +56,29 @@ const Admin = ({ user }) => {
             password: adminInfo.password,
             name: adminInfo.name
         }
+        try {
+            setAdminRole(adminData);
+            setOpen(true);
+        } catch (error) {
+            console.log(error);
+        }
         // console.log(email, userRole);
-        setAdminRole(adminData);
+        
 
     };
 
     const handleDelete = (id) => {
-        Meteor.call('delete.user', id);
+        if(window.confirm('Are you sure you want to delete?')){
+            Meteor.call('delete.user', id);
+        }
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
 
     return (
@@ -108,17 +127,17 @@ const Admin = ({ user }) => {
                             <Button variant="contained" color="primary" type="submit">Submit</Button>
 
                         </div>
+                        <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="success">
+                                Admin Added Successfully!
+                            </Alert>
+                        </Snackbar>
                     </form>
                 </Grid>
                 <Grid item xs={6}>
                     <h3>Delete User</h3>
-
-                    {
-                        console.log(allUserData)
-                    }
                     {
                         allUserData && allUserData.map(singleUser => <Users handleDelete={handleDelete} key={singleUser._id} singleUser={singleUser}></Users>)
-
                     }
                 </Grid>
             </Grid>

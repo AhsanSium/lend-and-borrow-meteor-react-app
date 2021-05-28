@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 
 const Dashboard = ({user,userRole}) => {
 
-    console.log(user, userRole);
+    // console.log(user, userRole);
 
 
     return (

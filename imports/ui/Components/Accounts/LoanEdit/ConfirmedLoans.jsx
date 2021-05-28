@@ -30,7 +30,7 @@ const ConfirmedLoans = ({singleLoan}) => {
 
     const [ hideElement , setHideElement ] = useState(false);
 
-    console.log(singleLoan.status);
+    // console.log(singleLoan.status);
     
     const handleConfirmClick = () => {
         handleConfirmPay(singleLoan._id, 'Confirmed')

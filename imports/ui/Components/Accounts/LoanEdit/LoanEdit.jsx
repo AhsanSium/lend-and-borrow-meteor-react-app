@@ -9,6 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,15 +29,28 @@ const LoanEdit = ({singleLoan, handleConfirmPay}) => {
 
     const classes = useStyles();
     const [dense, setDense] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const [ hideElement , setHideElement ] = useState(false);
 
-    console.log(singleLoan.status);
+    // console.log(singleLoan.status);
     
     const handleConfirmClick = () => {
-        handleConfirmPay(singleLoan._id, 'Confirmed')
-        setHideElement(true);
+        try {
+            handleConfirmPay(singleLoan._id, 'Confirmed')
+            setOpen(true);
+            setHideElement(true);
+        } catch (error) {
+            console.log(error);
+        }
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
 
     return (
         <div>
@@ -70,17 +85,12 @@ const LoanEdit = ({singleLoan, handleConfirmPay}) => {
                         </List>
                     </div>
             }
-            {/* {   !hideElement &&
-                <>
-                    <h3>Name: {singleLoan.borrowInfo.name}</h3>
-                    <h5>Amount: {singleLoan.borrowInfo.amount}</h5>
-                    <h5>Status: {singleLoan.status}</h5>
-                    {
-                        singleLoan.status === 'pending' &&
-                        <button onClick={handleConfirmClick}>Confirm</button>
-                    }
-                </>
-            } */}
+                        <Snackbar open={open} autoHideDuration={1500} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="success">
+                                Loan Confirmed!
+                            </Alert>
+                        </Snackbar>
+
         </div>
     );
 };

@@ -20,7 +20,7 @@ export const App = () => {
     setUserRole(matchedUser[0]?.role._id);
   }, [matchedUser])
 
-  console.log(userRole ? userRole : '');
+  // console.log(userRole ? userRole : '');
 
   return (
     <div>

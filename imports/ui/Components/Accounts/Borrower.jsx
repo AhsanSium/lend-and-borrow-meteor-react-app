@@ -67,7 +67,7 @@ const Borrower = ({ user }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(borrowInfo);
+        // console.log(borrowInfo);
         if (!borrowInfo) return;
         try {
             const status = 'pending';
@@ -86,10 +86,6 @@ const Borrower = ({ user }) => {
     }
 
     const [open, setOpen] = useState(false);
-
-    const handlesSubmitSuccess = () => {
-        setOpen(true);
-    };
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
